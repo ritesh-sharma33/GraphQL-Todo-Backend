@@ -1,0 +1,49 @@
+type Query {
+  users(query: String): [User!]!
+  todos(query: String): [Todo!]!
+}
+
+type Mutation {
+  createTodo(data: CreateTodoInput): Todo!
+  deleteTodo(id: ID!): Todo!
+  updateTodo(id: ID!, data: UpdateTodoInput!): Todo!
+}
+
+type Subscription {
+  todo(todoId: ID!): TodoSubscriptionPayload!
+}
+
+input UpdateTodoInput {
+  title: String
+  description: String
+  deadline: String
+}
+
+input CreateTodoInput {
+  title: String!
+  description: String!
+  createTime: String!
+  deadline: String!
+  createdBy: ID!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  age: Int!
+  todos: [Todo!]!
+}
+
+type Todo {
+  id: ID!
+  title: String!
+  description: String!
+  createTime: String!
+  deadline: String!
+  createdBy: User!
+}
+
+type TodoSubscriptionPayload {
+  data: Todo!
+}
